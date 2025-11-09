@@ -4,12 +4,14 @@
 export class StorageService {
   constructor(storageKey = 'todos') {
     this.storageKey = storageKey;
+    this.isAvailable = typeof localStorage !== 'undefined';
   }
 
   /**
    * Save data to localStorage
    */
   save(k, d) {
+    if(!this.isAvailable) return;
     try {
       const fk = `${this.storageKey}_${k}`;
       localStorage.setItem(fk, JSON.stringify(d));
@@ -22,6 +24,7 @@ export class StorageService {
    * Load data from localStorage
    */
   load(key, defaultValue = null) {
+    if(!this.isAvailable) return;
     try {
       const fullKey = `${this.storageKey}_${key}`;
       const item = localStorage.getItem(fullKey);
@@ -48,6 +51,7 @@ export class StorageService {
    * Clear all data for this app
    */
   clear() {
+    if(!this.isAvailable) return;
     try {
       const keysToRemove = [];
       for (let i = 0; i < localStorage.length; i++) {
