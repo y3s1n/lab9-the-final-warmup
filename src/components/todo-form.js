@@ -1,12 +1,18 @@
 import { LitElement, html, css } from 'lit';
 
 /**
- * TodoForm - Input form for adding new todos
+ * A web component that renders a form for adding new todo items.
+ * This component extends LitElement and provides a styled input form with submit functionality.
+ * 
+ * @extends {LitElement}
+ * @fires {CustomEvent} add-todo - Fired when a new todo is submitted with the todo text in the detail
+ * @customElement todo-form
  */
 export class TodoForm extends LitElement {
   static properties = {
     inputValue: { state: true }
   };
+
 
   static styles = css`
     :host {
@@ -59,11 +65,23 @@ export class TodoForm extends LitElement {
     }
   `;
 
+  /**
+   * Creates an instance of TodoForm.
+   * Initializes the input value state to an empty string.
+   */
   constructor() {
     super();
     this.inputValue = '';
   }
 
+  /**
+   * Handles the form submission event.
+   * Prevents the default form submission, trims the input value, and if not empty,
+   * dispatches an 'add-todo' event with the todo text and clears the input.
+   * 
+   * @param {Event} e - The form submission event
+   * @fires {CustomEvent} add-todo - Contains the todo text in event.detail.text
+   */
   handleSubmit(e) {
     e.preventDefault();
     const text = this.inputValue.trim();
@@ -79,10 +97,21 @@ export class TodoForm extends LitElement {
     }
   }
 
+  /**
+   * Handles the input change event.
+   * Updates the inputValue property with the current input value.
+   * 
+   * @param {InputEvent} e - The input event object
+   */
   handleInput(e) {
     this.inputValue = e.target.value;
   }
 
+  /**
+   * Renders the todo form component.
+   * 
+   * @returns {TemplateResult} The rendered HTML template
+   */
   render() {
     return html`
       <form @submit=${this.handleSubmit}>

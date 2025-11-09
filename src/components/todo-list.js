@@ -3,7 +3,20 @@ import { repeat } from 'lit/directives/repeat.js';
 import './todo-item.js';
 
 /**
- * TodoList - Displays a list of todos
+ * A web component that renders a scrollable list of todo items.
+ * This component acts as a container for todo-item components and handles empty state display.
+ * Uses the lit-html repeat directive for efficient rendering of todo items.
+ * 
+ * @extends {LitElement}
+ * @listens {CustomEvent} toggle-todo - Bubbles up from todo items
+ * @listens {CustomEvent} delete-todo - Bubbles up from todo items
+ * @listens {CustomEvent} update-todo - Bubbles up from todo items
+ * @customElement todo-list
+ * 
+ * @property {Array<Object>} todos - Array of todo objects to display
+ * @property {string} todos[].id - Unique identifier for each todo
+ * @property {string} todos[].text - The text content of the todo
+ * @property {boolean} todos[].completed - Whether the todo is completed
  */
 export class TodoList extends LitElement {
   static properties = {
@@ -52,11 +65,22 @@ export class TodoList extends LitElement {
     }
   `;
 
+  /**
+   * Creates an instance of TodoList.
+   * Initializes the todos array as empty.
+   */
   constructor() {
     super();
     this.todos = [];
   }
 
+  /**
+   * Renders the todo list component.
+   * Shows an empty state message if there are no todos,
+   * otherwise renders a scrollable list of todo-item components.
+   * 
+   * @returns {TemplateResult} The rendered HTML template
+   */
   render() {
     if (this.todos.length === 0) {
       return html`

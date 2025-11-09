@@ -1,7 +1,14 @@
 import { LitElement, html, css } from 'lit';
 
 /**
- * TodoItem - Individual todo item component
+ * A web component that renders an individual todo item.
+ * This component handles the display, editing, completion toggle, and deletion of a todo item.
+ * 
+ * @extends {LitElement}
+ * @fires {CustomEvent} toggle-todo - Fired when the todo's completion status is toggled
+ * @fires {CustomEvent} delete-todo - Fired when the todo is deleted
+ * @fires {CustomEvent} update-todo - Fired when the todo's text is updated
+ * @customElement todo-item
  */
 export class TodoItem extends LitElement {
   static properties = {
@@ -109,12 +116,22 @@ export class TodoItem extends LitElement {
     }
   `;
 
+  /**
+   * Creates an instance of TodoItem.
+   * Initializes the editing state and edit value.
+   */
   constructor() {
     super();
     this.isEditing = false;
     this.editValue = '';
   }
 
+  /**
+   * Handles the toggle event when the checkbox is clicked.
+   * Dispatches a toggle-todo event with the todo's ID.
+   * 
+   * @fires {CustomEvent} toggle-todo - Contains the todo ID in event.detail.id
+   */
   handleToggle() {
     this.dispatchEvent(new CustomEvent('toggle-todo', {
       detail: { id: this.todo.id },
@@ -123,6 +140,12 @@ export class TodoItem extends LitElement {
     }));
   }
 
+  /**
+   * Handles the delete button click.
+   * Prompts for confirmation and dispatches a delete-todo event if confirmed.
+   * 
+   * @fires {CustomEvent} delete-todo - Contains the todo ID in event.detail.id
+   */
   handleDelete() {
     if (confirm('Delete this todo?')) {
       this.dispatchEvent(new CustomEvent('delete-todo', {
@@ -133,11 +156,21 @@ export class TodoItem extends LitElement {
     }
   }
 
+  /**
+   * Handles the edit button click.
+   * Enters edit mode and initializes the edit value with the current todo text.
+   */
   handleEdit() {
     this.isEditing = true;
     this.editValue = this.todo.text;
   }
 
+  /**
+   * Handles the save button click in edit mode.
+   * Validates and dispatches an update-todo event with the new text.
+   * 
+   * @fires {CustomEvent} update-todo - Contains the todo ID and new text in event.detail
+   */
   handleSave() {
     if (this.editValue.trim()) {
       this.dispatchEvent(new CustomEvent('update-todo', {
@@ -149,11 +182,21 @@ export class TodoItem extends LitElement {
     }
   }
 
+  /**
+   * Handles the cancel button click in edit mode.
+   * Exits edit mode and resets the edit value.
+   */
   handleCancel() {
     this.isEditing = false;
     this.editValue = '';
   }
 
+  /**
+   * Handles keyboard events in the edit input.
+   * Enter key saves the changes, Escape key cancels editing.
+   * 
+   * @param {KeyboardEvent} e - The keyboard event object
+   */
   handleKeyDown(e) {
     if (e.key === 'Enter') {
       this.handleSave();
@@ -162,6 +205,12 @@ export class TodoItem extends LitElement {
     }
   }
 
+  /**
+   * Renders the todo item component.
+   * Shows either the edit form or the todo display based on editing state.
+   * 
+   * @returns {TemplateResult} The rendered HTML template
+   */
   render() {
     if (this.isEditing) {
       return html`
