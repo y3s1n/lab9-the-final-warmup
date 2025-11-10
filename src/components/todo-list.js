@@ -42,6 +42,8 @@ export class TodoList extends LitElement {
 
     .list-container {
       max-height: 500px;
+      margin: 0;
+      padding: 0;
       overflow-y: auto;
     }
 
@@ -92,13 +94,13 @@ export class TodoList extends LitElement {
     }
 
     return html`
-      <div class="list-container">
+      <ul class="list-container">
         ${repeat(
           this.todos,
           (todo) => todo.id,
           (todo) => html`<todo-item .todo=${todo}></todo-item>`
         )}
-      </div>
+      </ul>
     `;
   }
 }

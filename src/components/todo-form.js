@@ -116,6 +116,8 @@ export class TodoForm extends LitElement {
     return html`
       <form @submit=${this.handleSubmit}>
         <input
+          id="new-todo"
+          name="todo"
           type="text"
           placeholder="What needs to be done?"
           .value=${this.inputValue}
