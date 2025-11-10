@@ -26,7 +26,7 @@ export class TodoItem extends LitElement {
       display: flex;
       align-items: center;
       gap: var(--space-md);
-      padding: var(--space-lg);
+      padding: var(--space-md);
       background: var(--color-white);
       border-radius: 8px;
       margin-bottom: var(--space-sm);
@@ -34,7 +34,7 @@ export class TodoItem extends LitElement {
     }
 
     .todo-item:hover {
-      transform: translateX(var(--space-2xl));
+      transform: translateX(var(--space-l));
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
@@ -99,7 +99,7 @@ export class TodoItem extends LitElement {
 
     .save-btn {
       background: #2196F3;
-      color: var(--color-white);
+      color: white;
     }
 
     .save-btn:hover {
@@ -108,7 +108,7 @@ export class TodoItem extends LitElement {
 
     .cancel-btn {
       background: #757575;
-      color: var(--color-white);
+      color: white;
     }
 
     .cancel-btn:hover {
@@ -202,6 +202,21 @@ export class TodoItem extends LitElement {
       this.handleSave();
     } else if (e.key === 'Escape') {
       this.handleCancel();
+    }
+  }
+
+  /**
+   * Lifecycle hook called after the component updates.
+   * We use it to auto-focus the edit input when entering edit mode.
+   * @param {Map<string, any>} changedProps
+   */
+  updated(changedProps) {
+    if (changedProps.has('isEditing') && this.isEditing) {
+      const input = this.renderRoot.querySelector('.edit-input');
+      if (input) {
+        input.focus();
+        input.select();
+      }
     }
   }
 
