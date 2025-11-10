@@ -17,42 +17,42 @@ export class TodoForm extends LitElement {
   static styles = css`
     :host {
       display: block;
-      margin-bottom: 20px;
+      margin-bottom: var(--space-xl);
     }
 
     form {
       display: flex;
-      gap: 8px;
+      gap: var(--space-sm);
     }
 
     input {
       flex: 1;
-      padding: 12px 16px;
-      font-size: 16px;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
+      padding: var(--space-md) var(--space-lg);
+      font-size: var(--font-size-md);;
+      border: 2px solid var(--color-border-light);
+      border-radius: var(--space-sm);
       outline: none;
       transition: border-color 0.3s;
     }
 
     input:focus {
-      border-color: #667eea;
+      border-color: var(--color-accent);
     }
 
     button {
-      padding: 12px 24px;
-      background: #667eea;
+      padding: var(--space-md) var(--space-2xl);
+      background: var(--color-accent);
       color: white;
       border: none;
-      border-radius: 8px;
-      font-size: 16px;
+      border-radius: var(--space-sm);
+      font-size: var(--font-size-md);;
       font-weight: 600;
       cursor: pointer;
       transition: background 0.3s;
     }
 
     button:hover {
-      background: #5568d3;
+      background: var(--color-accent-dark);
     }
 
     button:active {

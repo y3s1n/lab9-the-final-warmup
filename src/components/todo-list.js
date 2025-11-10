@@ -30,14 +30,14 @@ export class TodoList extends LitElement {
 
     .empty-state {
       text-align: center;
-      padding: 40px 20px;
-      color: white;
+      padding: var(--space-2xl) var(--space-lg);
+      color: var(--color-white);
       font-size: 18px;
     }
 
     .empty-icon {
       font-size: 48px;
-      margin-bottom: 16px;
+      margin-bottom: var(--space-lg);
     }
 
     .list-container {
@@ -47,7 +47,7 @@ export class TodoList extends LitElement {
 
     /* Custom scrollbar */
     .list-container::-webkit-scrollbar {
-      width: 8px;
+      width: var(--space-sm);
     }
 
     .list-container::-webkit-scrollbar-track {

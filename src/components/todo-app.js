@@ -24,7 +24,7 @@ export class TodoApp extends LitElement {
     }
 
     .app-container {
-      background: white;
+      background: var(--color-card-bg);
       border-radius: 16px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
       padding: 32px;
@@ -33,13 +33,13 @@ export class TodoApp extends LitElement {
 
     h1 {
       margin: 0 0 8px 0;
-      color: #333;
+      color: var(--color-text-main);
       font-size: 32px;
       font-weight: 700;
     }
 
     .subtitle {
-      color: #666;
+      color: var(--color-text-muted);
       margin-bottom: 24px;
       font-size: 14px;
     }
@@ -49,7 +49,7 @@ export class TodoApp extends LitElement {
       justify-content: space-between;
       align-items: center;
       padding: 16px;
-      background: #f5f5f5;
+      background: var(--color-stats-bg);
       border-radius: 8px;
       margin-bottom: 20px;
     }
@@ -63,12 +63,12 @@ export class TodoApp extends LitElement {
     .stat-value {
       font-size: 24px;
       font-weight: 700;
-      color: #667eea;
+      color: var(--color-accent);
     }
 
     .stat-label {
       font-size: 12px;
-      color: #666;
+      color: var(--color-text-muted);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -91,21 +91,21 @@ export class TodoApp extends LitElement {
     }
 
     .clear-completed {
-      background: #ff9800;
+      background: var(--color-warning);
       color: white;
     }
 
     .clear-completed:hover {
-      background: #f57c00;
+      background: var(--color-warning-dark);
     }
 
     .clear-all {
-      background: #f44336;
+      background: var(--color-danger);;
       color: white;
     }
 
     .clear-all:hover {
-      background: #da190b;
+      background: var(--color-danger-dark);
     }
 
     button:disabled {
@@ -116,9 +116,9 @@ export class TodoApp extends LitElement {
     .footer {
       margin-top: 20px;
       padding-top: 20px;
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid var(--color-footer-border);
       text-align: center;
-      color: #666;
+      color: var(--color-text-muted);
       font-size: 12px;
     }
   `;

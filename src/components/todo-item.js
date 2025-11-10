@@ -25,53 +25,53 @@ export class TodoItem extends LitElement {
     .todo-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 16px;
-      background: white;
+      gap: var(--space-md);
+      padding: var(--space-lg);
+      background: var(--color-white);
       border-radius: 8px;
-      margin-bottom: 8px;
+      margin-bottom: var(--space-sm);
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .todo-item:hover {
-      transform: translateX(4px);
+      transform: translateX(var(--space-2xl));
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
 
     .checkbox {
-      width: 20px;
-      height: 20px;
+      width: var(--space-xl);
+      height: var(--space-xl);
       cursor: pointer;
     }
 
     .todo-text {
       flex: 1;
       font-size: 16px;
-      color: #333;
+      color: var(--color-text-main);
       word-break: break-word;
     }
 
     .todo-text.completed {
       text-decoration: line-through;
-      color: #999;
+      color: var(--color-text-completed);
     }
 
     .edit-input {
       flex: 1;
-      padding: 8px;
+      padding: var(--space-sm);
       font-size: 16px;
-      border: 2px solid #667eea;
+      border: 2px solid var(--color-accent);
       border-radius: 4px;
       outline: none;
     }
 
     .button-group {
       display: flex;
-      gap: 8px;
+      gap: var(--space-sm);
     }
 
     button {
-      padding: 6px 12px;
+      padding: var(--space-sm) var(--space-lg);
       border: none;
       border-radius: 4px;
       cursor: pointer;
@@ -89,17 +89,17 @@ export class TodoItem extends LitElement {
     }
 
     .delete-btn {
-      background: #f44336;
+      background: var(--color-danger);
       color: white;
     }
 
     .delete-btn:hover {
-      background: #da190b;
+      background: var(--color-danger-dark);
     }
 
     .save-btn {
       background: #2196F3;
-      color: white;
+      color: var(--color-white);
     }
 
     .save-btn:hover {
@@ -108,7 +108,7 @@ export class TodoItem extends LitElement {
 
     .cancel-btn {
       background: #757575;
-      color: white;
+      color: var(--color-white);
     }
 
     .cancel-btn:hover {
