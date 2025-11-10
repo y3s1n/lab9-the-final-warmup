@@ -78,17 +78,19 @@ export class StorageService {
    * Clear all data for this app
    */
   clear() {
-    if(!this.storage) return;
+    if (!this.storage) return;
     try {
+      const prefix = `${this.storageKey}_`;
       const keysToRemove = [];
 
-      for (let i = 0; i < storage.length; i++) {
+      for (let i = 0; i < this.storage.length; i++) {
         const key = this.storage.key(i);
-        if (key && key.startsWith(this.storageKey + '_')) {
+        if (key && key.startsWith(prefix)) {
           keysToRemove.push(key);
         }
       }
-      keysToRemove.forEach(key => this.storage.removeItem(key));
+
+      keysToRemove.forEach((key) => this.storage.removeItem(key));
     } catch (error) {
       console.error('Failed to clear storage:', error);
     }

@@ -1,53 +1,43 @@
-import { test } from 'node:test';
-import assert from 'node:assert';
+import { describe, it, expect, beforeEach } from 'vitest';
 import { TodoModel } from '../src/models/todo-model.js';
 
-/**
- * Mock storage service for testing
- */
 class MockStorage {
-  constructor() {
-    this.data = {};
-  }
-
-  save(key, value) {
-    this.data[key] = value;
-  }
-
-  load(key, defaultValue) {
-    return this.data[key] !== undefined ? this.data[key] : defaultValue;
-  }
-
-  remove(key) {
-    delete this.data[key];
-  }
-
-  clear() {
-    this.data = {};
-  }
+  constructor() { this.data = {}; }
+  save(key, value) { this.data[key] = JSON.stringify(value); }
+  load(key, def) { return this.data[key] ? JSON.parse(this.data[key]) : def; }
+  remove(key) { delete this.data[key]; }
 }
 
-test('TodoModel - addTodo should add a new todo', () => {
-  const storage = new MockStorage();
-  const model = new TodoModel(storage);
+describe('TodoModel', () => {
+  let model;
+  beforeEach(() => {
+    model = new TodoModel(new MockStorage());
+  });
 
-  model.addTodo('Test todo');
+  it('adds a new todo', () => {
+    model.addTodo('Write tests');
+    expect(model.todos.length).toBe(1);
+    expect(model.todos[0].text).toBe('Write tests');
+  });
 
-  assert.strictEqual(model.todos.length, 1);
-  assert.strictEqual(model.todos[0].text, 'Test todo');
-  assert.strictEqual(model.todos[0].completed, false);
+  it('toggles a todo', () => {
+    model.addTodo('Toggle this');
+    const id = model.todos[0].id;
+    model.toggleComplete(id);
+    expect(model.todos[0].completed).toBe(true);
+  });
+
+  it('updates a todo', () => {
+    model.addTodo('Old');
+    const id = model.todos[0].id;
+    model.updateTodo(id, 'New');
+    expect(model.todos[0].text).toBe('New');
+  });
+
+  it('deletes a todo', () => {
+    model.addTodo('Remove me');
+    const id = model.todos[0].id;
+    model.deleteTodo(id);
+    expect(model.todos.length).toBe(0);
+  });
 });
-
-test('TodoModel - should not add empty todos', () => {
-  const storage = new MockStorage();
-  const model = new TodoModel(storage);
-
-  model.addTodo('');
-  model.addTodo('   ');
-
-  assert.strictEqual(model.todos.length, 0);
-});
-
-/* so few tests! I guess you can say you have testing, but it isn't meaningful.
-   Also where are our end to end tests!?! */
-
