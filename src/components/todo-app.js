@@ -10,10 +10,10 @@ import './todo-list.js';
  * list, and storage service. It provides statistics and management actions for todos.
  * 
  * @extends {LitElement}
- * @fires {CustomEvent} add-todo - Listens for todo additions
- * @fires {CustomEvent} toggle-todo - Listens for todo completion toggles
- * @fires {CustomEvent} delete-todo - Listens for todo deletions
- * @fires {CustomEvent} update-todo - Listens for todo text updates
+ * @listens {CustomEvent} add-todo - Listens for todo additions
+ * @listens {CustomEvent} toggle-todo - Listens for todo completion toggles
+ * @listens {CustomEvent} delete-todo - Listens for todo deletions
+ * @listens {CustomEvent} update-todo - Listens for todo text updates
  * @customElement todo-app
  */
 export class TodoApp extends LitElement {

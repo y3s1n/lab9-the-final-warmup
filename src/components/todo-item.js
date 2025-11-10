@@ -5,9 +5,9 @@ import { LitElement, html, css } from 'lit';
  * This component handles the display, editing, completion toggle, and deletion of a todo item.
  * 
  * @extends {LitElement}
- * @fires {CustomEvent} toggle-todo - Fired when the todo's completion status is toggled
- * @fires {CustomEvent} delete-todo - Fired when the todo is deleted
- * @fires {CustomEvent} update-todo - Fired when the todo's text is updated
+ * @fires {CustomEvent<{ id: number }>} toggle-todo - Fired when the todo's completion status is toggled
+ * @fires {CustomEvent<{ id: number }>} delete-todo - Fired when the todo is deleted
+ * @fires {CustomEvent<{ id: number, text: string }>} update-todo - Fired when the todo's text is updated
  * @customElement todo-item
  */
 export class TodoItem extends LitElement {
@@ -130,7 +130,7 @@ export class TodoItem extends LitElement {
    * Handles the toggle event when the checkbox is clicked.
    * Dispatches a toggle-todo event with the todo's ID.
    * 
-   * @fires {CustomEvent} toggle-todo - Contains the todo ID in event.detail.id
+   * @fires {CustomEvent<{ id: number }>} toggle-todo - Contains the todo ID in event.detail.id
    */
   handleToggle() {
     this.dispatchEvent(new CustomEvent('toggle-todo', {
@@ -144,7 +144,7 @@ export class TodoItem extends LitElement {
    * Handles the delete button click.
    * Prompts for confirmation and dispatches a delete-todo event if confirmed.
    * 
-   * @fires {CustomEvent} delete-todo - Contains the todo ID in event.detail.id
+   * @fires {CustomEvent<{ id: number }>} delete-todo - Contains the todo ID in event.detail.id
    */
   handleDelete() {
     if (confirm('Delete this todo?')) {
@@ -169,7 +169,7 @@ export class TodoItem extends LitElement {
    * Handles the save button click in edit mode.
    * Validates and dispatches an update-todo event with the new text.
    * 
-   * @fires {CustomEvent} update-todo - Contains the todo ID and new text in event.detail
+   * @fires {CustomEvent<{ id: number, text: string }>} update-todo - Contains the todo ID and new text in event.detail
    */
   handleSave() {
     if (this.editValue.trim()) {

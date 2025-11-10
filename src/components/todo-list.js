@@ -14,7 +14,7 @@ import './todo-item.js';
  * @customElement todo-list
  * 
  * @property {Array<Object>} todos - Array of todo objects to display
- * @property {string} todos[].id - Unique identifier for each todo
+ * @property {number} todos[].id - Unique identifier for each todo
  * @property {string} todos[].text - The text content of the todo
  * @property {boolean} todos[].completed - Whether the todo is completed
  */

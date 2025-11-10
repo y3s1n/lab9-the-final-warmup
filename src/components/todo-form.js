@@ -80,7 +80,7 @@ export class TodoForm extends LitElement {
    * dispatches an 'add-todo' event with the todo text and clears the input.
    * 
    * @param {Event} e - The form submission event
-   * @fires {CustomEvent} add-todo - Contains the todo text in event.detail.text
+   * @fires {CustomEvent<{ text: string }>} add-todo - detail: { text: string }
    */
   handleSubmit(e) {
     e.preventDefault();
