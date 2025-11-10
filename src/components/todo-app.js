@@ -17,9 +17,6 @@ import './todo-list.js';
  * @customElement todo-app
  */
 export class TodoApp extends LitElement {
-  static properties = {
-    todos: { state: true }
-  };
 
   static styles = css`
     :host {
@@ -134,11 +131,10 @@ export class TodoApp extends LitElement {
     super();
     this.storageService = new StorageService();
     this.model = new TodoModel(this.storageService);
-    this.todos = this.model.todos;
 
     // Subscribe to model changes
     this.model.subscribe(() => {
-      this.todos = [...this.model.todos];
+      this.requestUpdate();
     });
   }
 
@@ -216,7 +212,7 @@ export class TodoApp extends LitElement {
 
         <div class="stats">
           <div class="stat-item">
-            <div class="stat-value">${this.todos.length}</div>
+            <div class="stat-value">${this.model.todos.length}</div>
             <div class="stat-label">Total</div>
           </div>
           <div class="stat-item">
@@ -234,7 +230,7 @@ export class TodoApp extends LitElement {
         </todo-form>
 
         <todo-list
-          .todos=${this.todos}
+          .todos=${this.model.todos}
           @toggle-todo=${this.handleToggleTodo}
           @delete-todo=${this.handleDeleteTodo}
           @update-todo=${this.handleUpdateTodo}>
@@ -250,7 +246,7 @@ export class TodoApp extends LitElement {
           <button
             class="clear-all"
             @click=${this.handleClearAll}
-            ?disabled=${this.todos.length === 0}>
+            ?disabled=${this.model.todos.length === 0}>
             Clear All
           </button>
         </div>

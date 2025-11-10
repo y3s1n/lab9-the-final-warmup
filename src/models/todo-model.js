@@ -28,9 +28,7 @@ export class TodoModel {
    * Add a new todo
    */
   addTodo(text) {
-    if (!text || text.trim() === '') {
-      return;
-    }
+    if (!text || text.trim() === '') return;
 
     const todo = {
       id: this.nextId++,
@@ -39,7 +37,7 @@ export class TodoModel {
       createdAt: new Date().toISOString()
     };
 
-    this.todos.push(todo);
+    this.todos = [...this.todos, todo];
     this.save();
     this.notify();
   }
@@ -48,12 +46,10 @@ export class TodoModel {
    * Toggle todo completion status
    */
   toggleComplete(id) {
-    const todo = this.todos.find(t => t.id === id);
-    if (todo) {
-      todo.completed = !todo.completed;
+      this.todos = this.todos.map(t => t.id === id ? { ...t, completed: !t.completed } : t);
       this.save();
       this.notify();
-    }
+    
   }
 
   /**
@@ -69,9 +65,9 @@ export class TodoModel {
    * Update todo text
    */
   updateTodo(id, newText) {
-    const todo = this.todos.find(t => t.id === id);
-    if (todo && newText && newText.trim() !== '') {
-      todo.text = newText.trim();
+    if (newText || newText.trim() !== '') {
+      const trimmed = newText.trim();
+      this.todos = this.todos.map(t => t.id === id ? {...t, text: trimmed } : t);
       this.save();
       this.notify();
     }
